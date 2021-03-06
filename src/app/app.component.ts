@@ -1,6 +1,5 @@
-/* eslint-disable no-undef */
 import {Component, ElementRef, ViewChild} from '@angular/core';
-import {BarcodeScannerService} from 'src/services/barcodeScannerService';
+import {BarcodeService} from 'src/services/barcodeService';
 
 @Component({
   selector: 'app-root',
@@ -13,10 +12,8 @@ export class AppComponent {
   @ViewChild('input')
   input!: ElementRef;
 
-  constructor() {
-    const barcodeScanner = new BarcodeScannerService();
-
-    barcodeScanner.scanned.subscribe(
+  constructor(public service: BarcodeService) {
+    service.scanned.subscribe(
       code => (this.barcode = `Barcode read: ${code}`),
       error => (this.barcode = `Error to read: ${error}`)
     );
